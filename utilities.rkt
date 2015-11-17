@@ -43,6 +43,13 @@ listed in the recipe for each 500 feet of elevation above sea level.
          +)
      0 x)))
 
+(define factorial
+  (lambda (n)
+    (* (factorial (- n 1))
+       n)))
+
+(factorial 10)
+
 (puzzle2 9)
 (puzzle2 -8)
 
