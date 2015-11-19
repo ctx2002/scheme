@@ -44,11 +44,40 @@ listed in the recipe for each 500 feet of elevation above sea level.
      0 x)))
 
 (define factorial
-  (lambda (n)
-    (* (factorial (- n 1))
-       n)))
+  (lambda (x)
+  (if (<= x 0)
+      1
+      (* (factorial (- x 1))
+         x))))
 
-(factorial 10)
+(define power
+  (lambda (base exponent)
+    (if (= 1 exponent)
+        base
+        (* (power base (- exponent 1))
+           base))))
+
+(define mult
+  (lambda (x y)
+    (cond
+      [(= y 0) 0]
+      [(< y 0) (+ (mult x (+ y 1)) (- x))]
+      [(> y 0) (+ (mult x (- y 1)) x)])))
+
+(mult 2 3)
+(mult 2 -3)
+(mult 112 -3)
+(mult 45 2)
+(mult 45 0)
+(mult 45 -0)
+(mult 45 -1)
+(mult 45 1)
+(power 2 1)
+(power 2 2)
+(power 2 10)
+(power 2 32)
+
+(factorial 50)
 
 (puzzle2 9)
 (puzzle2 -8)
