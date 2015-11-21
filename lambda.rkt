@@ -21,8 +21,8 @@
         (b ((a b) c))))))
 
 (define identity 
-  lambda (x)
-  x)
+  (lambda (x)
+  x))
 
 (define self_apply
   (lambda (s)
@@ -39,7 +39,29 @@
     ((apply identity)
      x)))
 
+#|
+We  can  use  the  function  application  function  to  define  
+a  function  with  the  same  effect as  the  function  application
+function itself.
 
+apply is the function application function
+
+(apply <function>) ==
+(λf.λa.(f a) <function>) =>λa.(<function> a)
+|#
+
+#|
+select first
+|#
+
+(define select_first
+  (lambda (first)
+    (lambda (second)
+      first)))
+
+
+((select_first identity) apply)
+(identity2 add1)
 ;now we need to resolve this lzero
 ((lzero  add1) 0)
 ((lone  add1) 0)
