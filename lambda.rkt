@@ -1,4 +1,5 @@
 #lang racket
+(require racket/trace)
 (define lzero
   (lambda (x)
     (lambda (y)
@@ -58,6 +59,77 @@ select first
   (lambda (first)
     (lambda (second)
       first)))
+
+(define select_second
+  (lambda (first)
+    (lambda (second)
+      second)))
+
+(define make_pair
+  (lambda (first)
+    (lambda (second)
+      (lambda (func)
+        ((func first)
+         second)))))
+
+(define make_triplet
+  (lambda (first)
+    (lambda (second)
+      (lambda (third)
+        (lambda (func)
+          (((func first)
+          second) third))))))
+
+(define select_first_3
+  (lambda (first)
+    (lambda (second)
+      (lambda (third)
+        first))))
+
+(define condi
+  (lambda (e1)
+    (lambda (e2)
+      (lambda (c)
+        ((c e1) e2)))))
+
+(define true select_first)
+(define false select_second)
+
+(define not 
+  (lambda (x)
+    ((x false) true)))
+
+(define and
+  (lambda (x)
+    (lambda (y)
+      ((x y) false))))
+
+(define or
+  (lambda (x)
+    (lambda (y)
+      ((x true) y))))
+
+(define zero identity)
+
+(define succ
+  (lambda (n)
+    (lambda (s)
+      ((s false) n))))
+
+(define iszero
+  (lambda (n)
+    (n select_first)))
+
+(succ zero)
+
+((or true) false)
+((and true) false)
+
+(not false)
+
+((((make_triplet identity2) apply) identity) select_first_3)
+
+(((make_pair identity) apply) select_first)
 
 
 ((select_first identity) apply)
